@@ -1,202 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Messages – Mj</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To Mj – A Letter from Katrin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
   <style>
     body {
-      margin: 0;
-      background: #000;
-      font-family: 'Inter', sans-serif;
-    }
-
-    .chat-container {
-      max-width: 390px;
+      background-color: #fdf6e3;
+      font-family: 'Special Elite', monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       height: 100vh;
-      margin: auto;
-      background-color: #f2f2f7;
-      display: flex;
-      flex-direction: column;
-      border: 1px solid #ccc;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-      position: relative;
+      margin: 0;
     }
 
-    .chat-header {
-      background-color: #fff;
-      padding: 12px;
-      text-align: center;
-      font-size: 17px;
-      font-weight: 600;
-      position: relative;
-      border-bottom: 1px solid #ccc;
-    }
-
-    .chat-header::before {
-      content: "\2039";
-      position: absolute;
-      left: 12px;
-      top: 10px;
-      font-size: 24px;
-      color: #007aff;
-    }
-
-    .chat-header::after {
-      content: "\2139";
-      position: absolute;
-      right: 12px;
-      top: 10px;
-      font-size: 18px;
-      color: #007aff;
-    }
-
-    .timestamp {
-      text-align: center;
-      font-size: 12px;
-      color: #999;
-      margin: 10px 0;
-    }
-
-    .chat-body {
-      flex: 1;
-      padding: 12px;
+    .typewriter-container {
+      width: 90%;
+      max-width: 600px;
+      padding: 30px;
+      background: #fffdf5;
+      border: 2px solid #d3c6b3;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      line-height: 1.6;
+      font-size: 16px;
+      white-space: pre-wrap;
       overflow-y: auto;
-      background-color: #e5e5ea;
-      display: flex;
-      flex-direction: column;
+      height: 80vh;
     }
 
-    .message {
-      max-width: 75%;
-      padding: 10px 14px;
-      margin: 6px 0;
-      border-radius: 20px;
-      font-size: 15px;
-      line-height: 1.5;
-      word-wrap: break-word;
-      opacity: 0;
-      transform: translateY(10px);
-      animation: slideIn 0.4s ease forwards;
-      position: relative;
-    }
-
-    .message.sender {
-      align-self: flex-end;
-      background-color: #007aff;
-      color: white;
-      border-bottom-right-radius: 5px;
-    }
-
-    .message.receiver {
-      align-self: flex-start;
-      background-color: #fff;
-      color: black;
-      border-bottom-left-radius: 5px;
-    }
-
-    .typing-indicator {
-      align-self: flex-start;
-      background-color: #fff;
-      color: #aaa;
-      font-size: 12px;
-      padding: 8px 12px;
-      border-radius: 20px;
-      max-width: 60px;
-      margin: 6px 0;
-      display: none;
-    }
-
-    .typing-indicator::after {
-      content: '...';
-      animation: blink 1.2s infinite;
+    .blinking-cursor {
+      display: inline-block;
+      width: 10px;
+      background: #000;
+      animation: blink 1s step-start infinite;
+      margin-left: 2px;
     }
 
     @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-
-    @keyframes slideIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      50% { opacity: 0; }
     }
   </style>
 </head>
 <body>
-
-<div class="chat-container">
-  <div class="chat-header">Mj</div>
-  <div class="chat-body" id="chatBody">
-    <div class="timestamp">Today • 1:43 AM</div>
-    <div class="typing-indicator" id="typing">&nbsp;</div>
+  <div class="typewriter-container" id="letter">
+    <span id="text"></span><span class="blinking-cursor"></span>
   </div>
-</div>
 
-<audio id="typeSound" src="https://www.myinstants.com/media/sounds/imessage-sent.mp3"></audio>
+  <audio id="keySound" src="https://www.soundjay.com/mechanical/typewriter-key-1.mp3" preload="auto"></audio>
 
-<script>
-const messages = [
-  "Hi Mj,",
-  "I know you’re probably not expecting anything from me anymore — not after everything.",
-  "I’m writing this after watching Green Bones, one of the movies you once suggested I watch. You were right, naiyak nga ako. But what hurt even more was realizing I couldn’t share my thoughts with you anymore like we used to.",
-  "That part hit me the hardest. It’s not just about the movie — it's the fact that I don’t get to tell you about it, ask for your take, or even hear your usual comments. Kasi hindi na pwede. Wala na tayo.",
-  "And that’s just one film out of the many you’ve recommended. There’s so much I’ll never get to talk to you about.",
-  "Huli na ang lahat.",
-  "Sayang, ‘no?",
-  "And I’m not even talking about movies anymore.",
-  "Alam mo, I really loved it whenever we’d talk about our dreams and plans — and how we would always include each other in them.",
-  "It meant the world to me every time you’d say something like, “Sabay tayo,” or “Basta ikaw sa ganito ganyan.”",
-  "Maybe those were just small things, baka nga corny for others — but they mattered to me. I held onto them.",
-  "Kasi it made me feel like we were building something together.",
-  "Mj, I know I’m far from perfect. I wasn’t the best partner either. I made mistakes, and I had shortcomings.",
-  "But all I ever really wanted was to grow and be better — for you.",
-  "I’m sorry if sometimes the way I showed love made you feel tired or drained.",
-  "I know we’re very different in so many ways. Pero kahit ganon, I was always willing to meet you halfway.",
-  "I just wanted us to understand each other and make it work.",
-  "I hope someday you can forgive me for all the pain I caused you.",
-  "I know we took a lot of risks for our relationship already. We tried — so many times.",
-  "And I wouldn’t say those chances were wasted, because everything happened for a reason.",
-  "Every “try” we gave each other had meaning. We took those chances not just out of habit, but because there was always a reason to keep fighting for what we had.",
-  "So if there’s even the slightest chance left…",
-  "Gusto ko pang manood ng madaming movies kasama ka — not just because you recommended them, but because I want to watch them with you.",
-  "I wrote this letter not really knowing what would come out of it. But every word here came straight from my heart.",
-  "I also aware of what you said na hindi mo na ako mahal. Naiintindihan ko. And I really appreciate your honesty.",
-  "Pero hindi ibig sabihin no’n, mawawala na rin yung love ko sayo.",
-  "I love you. Ay-ayaten ka. Gihigugma tika.",
-  "Love tika always"
-];
+  <script>
+    const text = `Hi Mj,
 
-let index = 0;
-function sendMessage() {
-  if (index >= messages.length) return;
-  const typing = document.getElementById('typing');
-  typing.style.display = 'block';
+I know you’re probably not expecting anything from me anymore — not after everything.
 
-  setTimeout(() => {
-    typing.style.display = 'none';
-    const msg = document.createElement('div');
-    msg.className = 'message sender';
-    msg.textContent = messages[index];
-    document.getElementById('chatBody').appendChild(msg);
-    msg.scrollIntoView({ behavior: 'smooth' });
+I’m writing this after watching Green Bones, one of the movies you once suggested I watch. You were right, naiyak nga ako. But what hurt even more was realizing I couldn’t share my thoughts with you anymore like we used to. That part hit me the hardest. It’s not just about the movie — it's the fact that I don’t get to tell you about it, ask for your take, or even hear your usual comments. Kasi hindi na pwede. Wala na tayo.
+And that’s just one film out of the many you’ve recommended. There’s so much I’ll never get to talk to you about.
+Huli na ang lahat. Sayang, ‘no?
+And I’m not even talking about movies anymore.
 
-    const sound = document.getElementById('typeSound');
-    sound.currentTime = 0;
-    sound.play();
+Alam mo, I really loved it whenever we’d talk about our dreams and plans — and how we would always include each other in them. It meant the world to me every time you’d say something like, “Sabay tayo,” or “Basta ikaw sa ganito ganyan.” Maybe those were just small things, baka nga corny for others — but they mattered to me. I held onto them. Kasi it made me feel like we were building something together.
 
-    index++;
-    setTimeout(sendMessage, 1300);
-  }, 1000);
-}
+Mj, I know I’m far from perfect. I wasn’t the best partner either. I made mistakes, and I had shortcomings. But all I ever really wanted was to grow and be better — for you.
 
-window.onload = () => {
-  setTimeout(sendMessage, 1500);
-};
-</script>
+I’m sorry if sometimes the way I showed love made you feel tired or drained. I know we’re very different in so many ways. Pero kahit ganon, I was always willing to meet you halfway. I just wanted us to understand each other and make it work. I hope someday you can forgive me for all the pain I caused you.
 
+I know we took a lot of risks for our relationship already. We tried — so many times. And I wouldn’t say those chances were wasted, because everything happened for a reason. Every “try” we gave each other had meaning. We took those chances not just out of habit, but because there was always a reason to keep fighting for what we had.
+
+So if there’s even the slightest chance left…
+Gusto ko pang manood ng madaming movies kasama ka — not just because you recommended them, but because I want to watch them with you.
+
+I wrote this letter not really knowing what would come out of it. But every word here came straight from my heart. I also know what you said na hindi mo na ako mahal. Naiintindihan ko. And I really appreciate your honesty.
+
+Pero hindi ibig sabihin no’n, mawawala na rin yung love ko sayo.
+
+I love you. Ay-ayaten ka. Gihigugma tika.
+
+Love tika always,
+Katrin`;
+
+    const textElement = document.getElementById("text");
+    const sound = document.getElementById("keySound");
+    let index = 0;
+
+    function type() {
+      if (index < text.length) {
+        textElement.textContent += text[index];
+        if (text[index] !== ' ' && text[index] !== '\n') {
+          sound.currentTime = 0;
+          sound.play();
+        }
+        index++;
+        setTimeout(type, 40);
+      }
+    }
+
+    window.onload = () => {
+      type();
+    }
+  </script>
 </body>
 </html>
